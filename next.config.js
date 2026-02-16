@@ -1,21 +1,17 @@
 const nextConfig = {
   images: {
-    domains: ['localhost', 'images.unsplash.com'],
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.myshopify.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.shopify.com',
-      },
+      { protocol: 'http', hostname: 'localhost' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: '**.myshopify.com' },
+      { protocol: 'https', hostname: 'cdn.shopify.com' },
     ],
   },
   output: 'standalone',
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  turbopack: {},
   webpack: (config, { dev }) => {
     if (dev) {
       config.watchOptions = {
