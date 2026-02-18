@@ -26,7 +26,7 @@ A modern, full-featured e-commerce platform built with Next.js, TypeScript, and 
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Database**: SQLite (Prisma ORM) - Can be upgraded to PostgreSQL
+    - **Database**: SQLite (Prisma ORM) - Can be upgraded to PostgreSQL
 - **Authentication**: NextAuth.js
 - **Payments**: Stripe
 - **State Management**: Zustand
@@ -70,6 +70,14 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Testing
+
+- **Unit and integration tests (Vitest):** `npm run test`
+- **Test coverage:** `npm run test:coverage`
+- **E2E tests (Playwright):** Start the app (`npm run dev`) in another terminal, then run `npm run test:e2e`. Or run `npm run test:e2e` alone; Playwright will start the dev server automatically.
+
+CI runs on push/PR (see `.github/workflows/ci.yml`): lint, build, Vitest tests, then Playwright E2E tests.
+
 ## Creating an Admin Account
 
 To create an admin account, you can use Prisma Studio:
@@ -109,10 +117,14 @@ The site uses a blue and white color scheme. Primary colors can be customized in
 │   ├── auth/              # Authentication pages
 │   ├── products/          # Product pages
 │   └── ...
-├── components/            # React components
-├── lib/                   # Utility functions
-├── prisma/               # Database schema
-└── store/                # Zustand stores
+├── components/             # React components
+├── e2e/                    # Playwright E2E tests
+├── lib/                    # Utility functions and tests
+├── prisma/                 # Database schema and seed
+├── store/                  # Zustand stores
+├── vitest.config.ts        # Vitest config
+├── playwright.config.js   # Playwright config
+└── .github/workflows/      # CI (lint, build, test)
 ```
 
 ## License
