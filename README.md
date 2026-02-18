@@ -118,8 +118,11 @@ The site uses a blue and white color scheme. Primary colors can be customized in
 │   ├── products/          # Product pages
 │   └── ...
 ├── components/             # React components
-├── e2e/                    # Playwright E2E tests
-├── lib/                    # Utility functions and tests
+├── tests/
+│   ├── unit/               # Vitest unit tests
+│   ├── integration/        # Vitest integration tests
+│   └── e2e/                # Playwright E2E tests
+├── lib/                    # Utility functions
 ├── prisma/                 # Database schema and seed
 ├── store/                  # Zustand stores
 ├── vitest.config.ts        # Vitest config
