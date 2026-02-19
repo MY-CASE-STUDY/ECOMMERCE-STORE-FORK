@@ -3,7 +3,7 @@ import { getShopifyClient, GET_PRODUCT_BY_HANDLE_QUERY, transformShopifyProduct 
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { handle: string } }
+  { params }: { params: Promise<{ handle: string }> }
 ) {
   try {
     if (!process.env.SHOPIFY_STORE_DOMAIN || !process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
@@ -13,9 +13,10 @@ export async function GET(
       );
     }
 
+    const { handle } = await params;
     const shopifyClient = getShopifyClient();
     const data: any = await shopifyClient.request(GET_PRODUCT_BY_HANDLE_QUERY, {
-      handle: params.handle,
+      handle,
     });
 
     if (!data.product) {

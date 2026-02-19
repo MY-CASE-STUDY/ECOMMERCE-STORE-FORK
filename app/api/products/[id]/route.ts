@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const useShopify = process.env.SHOPIFY_STORE_DOMAIN && process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
   
   if (useShopify) {
     try {
       const shopifyModule = await import("@/app/api/shopify/products/[handle]/route");
-      return shopifyModule.GET(request, { params: { handle: params.id } });
+      return shopifyModule.GET(request, { params: Promise.resolve({ handle: id }) });
     } catch (error) {
       console.error("Shopify product fetch error:", error);
     }
@@ -19,7 +20,7 @@ export async function GET(
   
   try {
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         reviews: {
           include: {

@@ -11,7 +11,7 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  turbopack: {},
+  turbopack: { root: __dirname },
   webpack: (config, { dev }) => {
     if (dev) {
       config.watchOptions = {

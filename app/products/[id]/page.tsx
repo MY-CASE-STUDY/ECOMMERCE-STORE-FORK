@@ -4,11 +4,12 @@ import { ProductDetailClient } from "./ProductDetailClient";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
+  const { id } = await params;
   try {
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/products/${params.id}`, {
+    const res = await fetch(`${baseUrl}/api/products/${id}`, {
       cache: 'no-store',
     });
     
@@ -43,6 +44,7 @@ export async function generateMetadata({
   };
 }
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  return <ProductDetailClient productId={params.id} />;
+export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return <ProductDetailClient productId={id} />;
 }
