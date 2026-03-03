@@ -67,6 +67,9 @@ jobs:
       - name: Prisma generate and push
         run: npx prisma generate && npx prisma db push
 
+      - name: Build application
+        run: npm run build
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
